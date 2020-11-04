@@ -65,29 +65,22 @@ User model
 username - String // required
 email - String // required & unique
 password - String // required
-myRoutes - [ObjectID<ClimbingRoute>]
 ```
 
 ClimbingRoute model
 
 ```
-route - ObjectID<User>
-name - String
-type - String
-rating - String
-pitches - Number
-location - String
+createdBy - ObjectID<User>
+routeId - id (db)
+name - String 
+type - String (db)
+rating - String (api)
+pitches - Number (api)
+location - String (db)
 personalNotes - String
 dateAccomplished - Date
-
-```
-
-List model
-
-```
-list - ObjectId<User>
-title - String
 listType - String, Enum ['current', 'future', 'sent']
+
 ```
 
 ## API Endpoints/Backend Routes
