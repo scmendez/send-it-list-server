@@ -6,21 +6,22 @@ Climbers are able to keep track of routes they are projecting, want to climb, an
 
 ## User Stories
 
--  **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
--  **Signup:** As an anon I can sign up in the platform so that I can start saving routes to my three lists
--  **Login:** As a user I can login to the platform so that I can see my lists
--  **Logout:** As a user I can logout from the platform so no one else can use it
--  **Search new routes** As a user I want to be able to search routes on a map and add them to my "Want to climb" list
--  **Want to climb** As a user I want to keep a list of routes that I hope to climb in the future
--  **Projects** As a user I want to keep track of routes I've attempted, including personal notes
--  **Have climbed** As a user I want to see a list of routes I have sent
--  **Route detail page** As a user I want to see details of the routes and additional information depending on the list it's in
+- **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
+- **Signup:** As an anon I can sign up in the platform so that I can start saving routes to my three lists
+- **Login:** As a user I can login to the platform so that I can see my lists
+- **Logout:** As a user I can logout from the platform so no one else can use it
+- **Search new routes** As a user I want to be able to search routes on a map and add them to my "Want to climb" list
+- **Want to climb** As a user I want to keep a list of routes that I hope to climb in the future
+- **Projects** As a user I want to keep track of routes I've attempted, including personal notes
+- **Have climbed** As a user I want to see a list of routes I have sent
+- **Route detail page** As a user I want to see details of the routes and additional information depending on the list it's in
 
 ## Backlog
 
 Inactivity alert:
+
 - Sending messages to a predetermined number if a solo climber hasn't checked back in within a set period of time
-  
+
 # Client
 
 ## Routes
@@ -53,7 +54,7 @@ Inactivity alert:
   - Input: location & type
   - Output: list of routes that match that location & type
 - Route component
-  - Output: route name  
+  - Output: route name
 
 # Server
 
@@ -72,7 +73,7 @@ ClimbingRoute model
 ```
 createdBy - ObjectID<User>
 routeId - id (db)
-name - String 
+name - String
 type - String (db)
 rating - String (api)
 pitches - Number (api)
@@ -106,13 +107,13 @@ listType - String, Enum ['current', 'future', 'sent']
     - dateAccomplished
 - DELETE /user/project/delete
   - body: (empty)
-  
 
 ## Links
 
-### Trello/Kanban
+### Trello/Figma
 
-[Link to your trello board](https://trello.com) or picture of your physical board
+[Trello board](https://trello.com/b/w9ZDKLIB/send-it-list)
+[Figma] (https://www.figma.com/file/pjwbfAhXGIO0iHnn23zmku/ClimbOn---mobile-first?node-id=0%3A1)
 
 ### Git
 
