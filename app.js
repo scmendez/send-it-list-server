@@ -4,7 +4,7 @@ const bodyParser   = require('body-parser');
 const cookieParser = require('cookie-parser');
 const express      = require('express');
 const favicon      = require('serve-favicon');
-const hbs          = require('hbs');
+// const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
@@ -85,6 +85,9 @@ app.use('/api', indexRoutes);
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/api', authRoutes);
+
+const projectRoutes = require('./routes/project.routes');
+app.use('/api', projectRoutes);
 
 
 module.exports = app;
