@@ -11,7 +11,7 @@ let ClimbingRouteSchema = new mongoose.Schema(
     routeType: String,
     routeRating: String,
     routePitches: String,
-    routeLocation: String,
+    routeLocation: [String],
     personalNotes: String,
     dateAccomplished: Date,
     listType: {

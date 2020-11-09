@@ -10,6 +10,7 @@ router.get('/myProjects', (req, res) => {
 
   ClimbingRouteModel.find({savedBy: climberId})
     .then((projs) => {
+      if (!projs) {res.status(200).json({message: 'No projects yet!'})}
       res.status(200).json(projs)
     })
     .catch((err) => {
@@ -20,7 +21,7 @@ router.get('/myProjects', (req, res) => {
     })
 })
 
-router.get('/mapSearch/:searchedLocation/:searchedRouteType', (req, res) => {
+router.get('/mapSearch/:searchedLocation', (req, res) => {
   let searchedLocation = req.params.searchedLocation
   //let searchedRouteType = req.params.searchedRouteType
 
@@ -30,12 +31,43 @@ router.get('/mapSearch/:searchedLocation/:searchedRouteType', (req, res) => {
       let cityLat = latLngInfo.lat
       let cityLon = latLngInfo.lng
 
-      axios.get(`https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${cityLat}&lon=${cityLon}&maxDistance=200&maxResults=100&key=${process.env.MP_API_KEY}`)
+      axios.get(`https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${cityLat}&lon=${cityLon}&maxDistance=100&maxResults=50&key=${process.env.MP_API_KEY}`)
         .then((routesResponse) => {
           //console.log(response.data)
           res.status(200).json({routesResponse: routesResponse.data, cityLatLon: latLngInfo});
-          console.log(latLngInfo)
+          //console.log(latLngInfo)
         })
+    })
+
+})
+
+router.get(`/add-climbing-route/:routeId`, isLoggedIn, (req, res) => {
+  let routeId = req.params.routeId
+  let climberId = req.session.loggedInClimber._id
+
+  axios.get(`https://www.mountainproject.com/data/get-routes?routeIds=${routeId}&key=${process.env.MP_API_KEY}`)
+    .then((response) => {
+      const { id, name, type, rating, pitches, location } = response.data.routes[0]
+      console.log(response.data.routes[0])
+      const addedRoute = {
+        savedBy: climberId,
+        routeId: id,
+        routeName: name,
+        routeType: type,
+        routeRating: rating,
+        routePitches: pitches,
+        routeLocation: location,
+        personalNotes: "",
+        dateAccomplished: null,
+        listType: 'future'
+      } 
+      ClimbingRouteModel.create(addedRoute)
+        .then((newAddedRoute) => {
+            console.log('climbing route added')
+            console.log('newAddedRoute', newAddedRoute)
+            res.status(200).json(newAddedRoute)
+        })
+
     })
 
 })
