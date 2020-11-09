@@ -24,8 +24,6 @@ router.get('/mapSearch/:searchedLocation/:searchedRouteType', (req, res) => {
   let searchedLocation = req.params.searchedLocation
   //let searchedRouteType = req.params.searchedRouteType
 
-  //api that transforms city entered into lat/lon
-  //create and fill cityLat and cityLon variables from there
   axios.get(`http://open.mapquestapi.com/geocoding/v1/address?key=${process.env.MQ_API_KEY}&location=${searchedLocation}`)
     .then((latLonResponse) => {
       let latLngInfo = latLonResponse.data.results[0].locations[0].latLng
@@ -41,23 +39,5 @@ router.get('/mapSearch/:searchedLocation/:searchedRouteType', (req, res) => {
     })
 
 })
-
-//   let options = {
-//     method: 'GET',
-//     url: 'https://devru-latitude-longitude-find-v1.p.rapidapi.com/latlon.php',
-//     params: {location: ${location}},
-//     headers: {
-//       'x-rapidapi-key': 'SIGN-UP-FOR-KEY',
-//       'x-rapidapi-host': 'devru-latitude-longitude-find-v1.p.rapidapi.com'
-//     }
-//   };
-
-//   axios.request(options)
-//     .then((response) => {
-//     console.log(response.data);
-//   })
-
-//   axios.get(`https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=40.03&lon=-105.25&maxDistance=200&key=${process.env.API_KEY}`)
-// })
 
 module.exports = router;
