@@ -72,4 +72,46 @@ router.get(`/add-climbing-route/:routeId`, isLoggedIn, (req, res) => {
 
 })
 
+router.get(`/details/:routeDbId`, isLoggedIn, (req, res) => {
+  let routeDbId = req.params.routeDbId
+
+  ClimbingRouteModel.findById(routeDbId)
+    .then((personalRoute) => {
+      console.log('personalroute', personalRoute)
+      res.status(200).json(personalRoute)
+    })
+
+})
+
+router.patch(`/edit/:routeDbId`, isLoggedIn, (req, res) => {
+  let routeDbId = req.params.routeDbId
+
+  const { personalNotes, dateAccomplished, listType } = req.body;
+
+  ClimbingRouteModel.findByIdAndUpdate(routeDbId, {$set: {personalNotes: personalNotes, dateAccomplished: dateAccomplished, listType: listType}})
+    .then((response) => {
+          res.status(200).json(response)
+    })
+    .catch((err) => {
+          console.log(err)
+          res.status(500).json({
+              error: 'Something went wrong',
+              message: err
+          })
+    }) 
+})
+
+router.delete(`/delete/:routeDbId`, isLoggedIn, (req, res) => {
+  ClimbingRouteModel.findByIdAndDelete(req.params.routeDbId)
+    .then((response) => {
+      res.status(200).json(response)
+    })
+    .catch((err) => {
+      res.status(500).json({
+          error: 'Something went wrong',
+          message: err
+      })
+    })  
+})
+
 module.exports = router;
