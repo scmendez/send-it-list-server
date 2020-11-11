@@ -12,8 +12,10 @@ const path         = require('path');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/send-it-list-server'
+
 mongoose
-  .connect('mongodb://localhost/send-it-list-server', {useNewUrlParser: true, useUnifiedTopology: true})
+  .connect(`${MONGODB_URI}`, {useNewUrlParser: true, useUnifiedTopology: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
