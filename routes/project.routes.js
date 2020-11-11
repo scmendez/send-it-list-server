@@ -5,7 +5,7 @@ const axios = require('axios')
 const ClimbingRouteModel = require('../models/ClimbingRoute.model')
 const { isLoggedIn } = require('../helpers/auth-helper');
 
-router.get('/myProjects', (req, res) => {
+router.get('/myProjects', isLoggedIn, (req, res) => {
   let climberId = req.session.loggedInClimber._id
 
   ClimbingRouteModel.find({savedBy: climberId})
@@ -21,7 +21,7 @@ router.get('/myProjects', (req, res) => {
     })
 })
 
-router.get('/mapSearch/:searchedLocation', (req, res) => {
+router.get('/mapSearch/:searchedLocation', isLoggedIn, (req, res) => {
   let searchedLocation = req.params.searchedLocation
   //let searchedRouteType = req.params.searchedRouteType
 
@@ -47,7 +47,7 @@ router.get(`/add-climbing-route/:routeId`, isLoggedIn, (req, res) => {
 
   axios.get(`https://www.mountainproject.com/data/get-routes?routeIds=${routeId}&key=${process.env.MP_API_KEY}`)
     .then((response) => {
-      const { id, name, type, rating, pitches, location } = response.data.routes[0]
+      const { id, name, type, rating, pitches, location, url, imgMedium } = response.data.routes[0]
       console.log(response.data.routes[0])
       const addedRoute = {
         savedBy: climberId,
@@ -57,6 +57,8 @@ router.get(`/add-climbing-route/:routeId`, isLoggedIn, (req, res) => {
         routeRating: rating,
         routePitches: pitches,
         routeLocation: location,
+        routeURL: url,
+        routeImg: imgMedium,
         personalNotes: "",
         dateAccomplished: null,
         listType: 'future'

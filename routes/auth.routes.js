@@ -126,7 +126,7 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/climber', isLoggedIn, (req, res, next) => {
- res.status(200).json(req.session.loggedInClimber);
+    res.status(200).json(req.session.loggedInClimber);
 });
 //this is created so that when the page is refreshed and loggedInUser state gets wiped out, it doesn't
 //isLoggedIn is a middleware (a simple function we've created and is being imported at the top) to check if user is logged in

@@ -13,7 +13,8 @@ let ClimberSchema = new mongoose.Schema(
     password: {
       type: String,
       required: true
-    }
+    },
+    profilePhoto: String
   },
   {
     timestamps: true
