@@ -30,6 +30,7 @@ router.patch('/editUsername/:climberId', (req, res, next) => {
       ClimberModel.findById(climberId)
         .then((responseAgain) => {
           console.log(responseAgain)
+          req.session.loggedInClimber = responseAgain
           res.status(200).json(responseAgain)
         })
       
