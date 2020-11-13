@@ -90,7 +90,7 @@ router.patch(`/edit/:routeDbId`, isLoggedIn, (req, res) => {
 
   const { personalNotes, dateAccomplished, listType } = req.body;
 
-  ClimbingRouteModel.findByIdAndUpdate(routeDbId, {$set: {personalNotes: personalNotes, dateAccomplished: dateAccomplished, listType: listType}})
+  ClimbingRouteModel.findByIdAndUpdate(routeDbId, {$set: {personalNotes: personalNotes, dateAccomplished: dateAccomplished, listType: listType}}, {new: true})
     .then(() => {
         ClimbingRouteModel.findById(routeDbId)
           .then((response) => {
